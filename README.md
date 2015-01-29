@@ -1,4 +1,4 @@
-# tree_thinner
+# tree_thinner.py
 Extracts the desired number of trees from a MrBayes posterior tree file
 
 Given burnin and trees_number this program extracts 
