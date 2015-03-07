@@ -8,7 +8,7 @@ import sys, re
 Usage = """
 Given burnin and trees_number this program extracts 
 the desired number of trees from the posterior 
-and writes a new file.
+and prints output that can be redirected to a file.
 Usage:
 	tree_thinner.py your_sample_file.runX.t burnin trees_number > new_file.txt
 Example:
