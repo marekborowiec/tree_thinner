@@ -48,7 +48,6 @@ else:
 	except ValueError:
 		Thinned_trees = No_burnin_trees
 		
-	print(Block)
 	# print the block, thinned sample, and end statement
 	print str('\n'.join(map(str, Block))).replace("['", "").replace("\\n']", "").replace("', '", ";")
 	print str('\n'.join(map(str, Thinned_trees))).replace("['", "").replace("\\n']", "").replace("', '", ";")
