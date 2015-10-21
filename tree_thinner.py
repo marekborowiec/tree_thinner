@@ -27,27 +27,27 @@ else:
 	# this string appears in MrBayes NEXUS tree files and signifies a tree from the posterior
 	Tree_string = str("tree gen")
 	
-	# define search pattern to find the NEXUS block, i.e., all lines that are not trees and not the end statements
-	Block_search = re.compile("^(?!.*tree gen*|.*end*).*")
-
 	# get all lines from the file
-	All_lines_list = [line.split(';') for line in open(FileName)]
+	All_lines_list = [line.split("\r\n") for line in open(FileName)]
 	
 	# find lines to be printed as the NEXUS block
-	Block = [x for i, x in enumerate(All_lines_list) if re.search(Block_search, str(x))]
+	Block = [x for x, x in enumerate(All_lines_list) if not re.search(Tree_string, str(x)) and not re.search("end;", str(x))]
 	
 	# find all tree lines
-	All_trees_list = [x for i, x in enumerate(All_lines_list) if re.search(Tree_string, str(x))]
+	All_trees_list = [x for x, x in enumerate(All_lines_list) if re.search(Tree_string, str(x))]
 	
 	# calculate at what interval the trees shuld be sampled from post-burnin 
 	Iteration = ( len(All_trees_list) - int(Burnin) - 1 ) / int(Trees_no)
 	
 	# get only post-burnin trees (add one to account for the starting tree)
-	No_burnin_trees = All_trees_list[(int(Burnin) + 1):]
+	No_burnin_trees = All_trees_list[(int(Burnin)):]
 
-	# get the thinned sample of post-burnin trees 
-	Thinned_trees = No_burnin_trees[0::int(Iteration)]
-
+	# get the thinned sample of post-burnin trees
+	try:
+		Thinned_trees = No_burnin_trees[0::int(Iteration)]
+	except ValueError:
+		Thinned_trees = No_burnin_trees
+		
 	# print the block, thinned sample, and end statement
 	print str('\n'.join(map(str, Block))).replace("['", "").replace("\\n']", "").replace("', '", ";")
 	print str('\n'.join(map(str, Thinned_trees))).replace("['", "").replace("\\n']", "").replace("', '", ";")
