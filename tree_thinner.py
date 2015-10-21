@@ -52,4 +52,3 @@ else:
 	print str('\n'.join(map(str, Block))).replace("['", "").replace("\\n']", "").replace("', '", ";")
 	print str('\n'.join(map(str, Thinned_trees))).replace("['", "").replace("\\n']", "").replace("', '", ";")
 	print "end;"
-
