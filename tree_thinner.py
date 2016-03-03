@@ -47,10 +47,10 @@ else:
         All_trees_list = [str(x) for x, x in enumerate(All_lines_list) if re.search(BEAST_tree_string, str(x))]
 
     # calculate at what interval the trees shuld be sampled from post-burnin
-    Iteration = ( len(All_trees_list) - int(Burnin) - 1 ) / int(Trees_no)
+    Iteration = (len(All_trees_list) - int(Burnin)) / int(Trees_no)
     
     # get only post-burnin trees (add one to account for the starting tree)
-    No_burnin_trees = All_trees_list[(int(Burnin)):]
+    No_burnin_trees = All_trees_list[(int(Burnin) + 1):]
 
     # get the thinned sample of post-burnin trees
     try:
